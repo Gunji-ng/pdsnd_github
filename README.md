@@ -14,5 +14,8 @@ new_york_city.csv
 washington.csv
 
 ### Credits
-udacity.com
+udacity.com,
+Derek Steer,
+Juno Lee,
+Richard Kalehoff,
 All the wonderful instructors for the Programming for Data Science Nanodegree.
