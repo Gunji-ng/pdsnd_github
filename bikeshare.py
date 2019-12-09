@@ -196,3 +196,47 @@ def main():
 
 if __name__ == "__main__":
 	main()
+
+
+def get_input():
+    print('-'*40)
+    # get user input for city (chicago, new york city, washington).
+    city = input("What city's raw data would you like to explore?\n('Chicago', 'New York City', 'Washington'):\n").strip().lower()
+    print('-'*40)
+    return city
+
+
+def load_raw_data(city):
+    # load the City Data into a Pandas DataFrame
+    df = pd.read_csv(CITY_DATA[city])
+    return df
+
+
+def show_raw_data(df):
+    # Display first five rows in the DataFrame
+    print(df.head())
+
+
+def parse_raw_data():
+    while True:
+        city = get_input()
+        df = load_raw_data(city)
+
+        show_raw_data(df)
+
+        keep_going = input("\nWould you like to see other raw data?\nEnter 'yes' or 'no':\n").strip().lower()
+        if keep_going != 'yes':
+            print("Thank you for using this platform!\n")
+            break
+
+
+def see_raw_data():
+    # Ask users if they would like to view 5 rows of raw data
+    decision = input("\nWould you like to view a City's raw data (5 rows only)?\nEnter 'yes' or 'no':\n").strip().lower()
+
+    if decision == 'yes':
+        parse_raw_data()
+    else:
+        print("Thank you for using this platform!\n")
+
+see_raw_data()
