@@ -6,6 +6,10 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'all']
+
+days = {'mon': 'Monday', 'tue': 'Tuesday', 'wed': 'Wednesday', 'thur': 'Thursday', 'fri': 'Friday', 'sat': 'Saturday', 'sun': 'Sunday', 'all': 'all'}
+
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -52,7 +56,26 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
+    # load the City Data into a Pandas DataFrame
+    df = pd.read_csv(CITY_DATA[city])
 
+    # convert the Start Time to Pandas timedate format
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
+
+    # create 'Month', 'Day of Week' and 'Hour' columns from 'Start Time'
+    df['Month'] = df['Start Time'].dt.month
+    df['Day of Week'] = df['Start Time'].dt.weekday_name
+    df['Hour'] = df['Start Time'].dt.hour
+
+    # filter by month
+    if month != 'all':
+        month_no = months.index(month) + 1
+
+        df = df[df['Month'] == month_no]
+
+    # filter by day
+    if day != 'all':
+        df = df[df['Day of Week'] == days[day]]
 
     return df
 
